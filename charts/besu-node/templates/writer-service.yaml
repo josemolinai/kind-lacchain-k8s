@@ -1,0 +1,27 @@
+{{- if contains "writer-1" .Release.Name }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: writers-lb
+  labels:
+    app: {{ template "besu-node.name" . }}
+    chart: {{ template "besu-node.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+    namespace: {{ .Release.Namespace }}
+    app.kubernetes.io/name: {{ include "besu-node.name" . }}
+    helm.sh/chart: {{ include "besu-node.chart" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
+  namespace: {{ .Release.Namespace }}
+spec:
+  type: LoadBalancer
+  selector:
+    app: {{ template "besu-node.name" . }}
+    type: writer
+  ports:
+    - name: json-rpc
+      port: {{ .Values.node.rpc.port }}
+      targetPort: json-rpc
+      protocol: TCP
+  {{- end }}
