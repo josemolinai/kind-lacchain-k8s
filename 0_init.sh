@@ -37,3 +37,13 @@ docker push $repo_local/metallb/controller:v0.12.1
 docker pull pegasyseng/k8s-helper:v1.18.4
 docker tag pegasyseng/k8s-helper:v1.18.4 $repo_local/pegasyseng/k8s-helper:v1.18.4
 docker push $repo_local/pegasyseng/k8s-helper:v1.18.4
+
+docker pull k8s.gcr.io/ingress-nginx/kube-webhook-certgen:v1.1.1@sha256:64d8c73dca984af206adf9d6d7e46aa550362b1d7a01f3a0a91b20cc67868660
+docker tag k8s.gcr.io/ingress-nginx/kube-webhook-certgen:v1.1.1@sha256:64d8c73dca984af206adf9d6d7e46aa550362b1d7a01f3a0a91b20cc67868660 $repo_local/ingress-nginx/kube-webhook-certgen:v1.1.1
+docker push $repo_local/ingress-nginx/kube-webhook-certgen:v1.1.1
+
+docker pull k8s.gcr.io/ingress-nginx/controller:v1.2.0@sha256:d8196e3bc1e72547c5dec66d6556c0ff92a23f6d0919b206be170bc90d5f9185
+docker tag k8s.gcr.io/ingress-nginx/controller:v1.2.0@sha256:d8196e3bc1e72547c5dec66d6556c0ff92a23f6d0919b206be170bc90d5f9185 $repo_local/ingress-nginx/controller:v1.2.0
+docker push $repo_local/ingress-nginx/controller:v1.2.0
+
+helm plugin install https://github.com/databus23/helm-diff
