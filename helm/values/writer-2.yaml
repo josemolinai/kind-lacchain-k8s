@@ -2,4 +2,4 @@
 writers:
   enabled: true
 nodeSelector:
-  writer-2: "true"  
+  writer-2: "true"

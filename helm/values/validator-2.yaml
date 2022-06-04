@@ -2,4 +2,4 @@
 validators:
   enabled: true
 nodeSelector:
-  validator-2: "true"  
+  validator-2: "true" 

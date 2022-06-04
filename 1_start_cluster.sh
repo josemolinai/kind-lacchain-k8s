@@ -32,7 +32,7 @@ nodes:
     containerPath: /mnt/data/
     readOnly: false
     selinuxRelabel: false
-    propagation: Bidirectional
+    propagation: None
   kubeadmConfigPatches:
   - |
     kind: InitConfiguration
@@ -55,17 +55,17 @@ nodes:
     containerPath: /mnt/data/validator/1/
     readOnly: false
     selinuxRelabel: false
-    propagation: Bidirectional
+    propagation: None
   - hostPath: /mnt/lacchain-k8s/node1/validator/2/
     containerPath: /mnt/data/validator/2/
     readOnly: false
     selinuxRelabel: false
-    propagation: Bidirectional
+    propagation: None
   - hostPath: /mnt/lacchain-k8s/node1/boot/1/
     containerPath: /mnt/data/boot/1/
     readOnly: false
     selinuxRelabel: false
-    propagation: Bidirectional 
+    propagation: None 
 - role: worker
   image: kindest/node:v1.24.0@sha256:0866296e693efe1fed79d5e6c7af8df71fc73ae45e3679af05342239cdc5bc8e
   extraMounts:
@@ -73,17 +73,17 @@ nodes:
     containerPath: /mnt/data/validator/3/
     readOnly: false
     selinuxRelabel: false
-    propagation: Bidirectional
+    propagation: None
   - hostPath: /mnt/lacchain-k8s/node1/validator/4/
     containerPath: /mnt/data/validator/4/
     readOnly: false
     selinuxRelabel: false
-    propagation: Bidirectional
+    propagation: None
   - hostPath: /mnt/lacchain-k8s/node1/boot/2/
     containerPath: /mnt/data/boot/2/
     readOnly: false
     selinuxRelabel: false
-    propagation: Bidirectional             
+    propagation: None             
 EOF
 
 # connect the registry to the cluster network if not already connected

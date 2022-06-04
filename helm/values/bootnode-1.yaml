@@ -2,4 +2,5 @@
 bootnode:
   enabled: true
 nodeSelector:
-  bootnode-1: "true"  
+  bootnode-1: "true" 
+    
