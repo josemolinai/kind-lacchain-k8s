@@ -17,5 +17,5 @@ fi
 ./docker/preload_base.sh
 helm plugin install https://github.com/databus23/helm-diff
 
-#Volumen
-./volumen/create_folders.sh
+#storage
+./storage/create_folders.sh

@@ -28,10 +28,6 @@ helmfiles:
 
 # The desired states of Helm releases.
 releases:
-  - name: monitoring
-    namespace: {{ .Namespace }}
-    chart: ./charts/besu-monitoring
-
   - name: bootnode-1
     labels:
       component: bootnode

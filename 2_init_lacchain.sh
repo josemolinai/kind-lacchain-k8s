@@ -1,2 +1,2 @@
 #!/bin/sh
-helmfile -n lacchain-network -f helmfile.yaml apply
+helmfile -n lacchain-network --debug --log-level debug -f ./helm/lacchain.yaml apply

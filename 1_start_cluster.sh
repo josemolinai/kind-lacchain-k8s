@@ -110,10 +110,8 @@ kubectl apply -f ./cluster/nginx-controller.yaml
 kubectl label nodes lacchain-k8s-control-plane --overwrite monitoring=true
 kubectl label nodes lacchain-k8s-worker --overwrite  bootnode-1=true validator-1=true validator-2=true writer-1=true
 kubectl label nodes lacchain-k8s-worker2 --overwrite bootnode-2=true validator-3=true validator-4=true writer-2=true
-
-
-kubectl create namespace lacchain-network
 kubectl create namespace metallb-system
+
 kubectl apply -n metallb-system -f metallb/metallb-configmap.yaml
 kubectl apply -n metallb-system -f metallb/metallb.yaml
 kubectl get pods -n metallb-system --watch
