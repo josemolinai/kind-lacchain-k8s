@@ -23,10 +23,14 @@ spec:
         release: {{ .Release.Name }}
         component: grafana
     spec:
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
       containers:
         - name: grafana
           image: localhost:5001/grafana/grafana:6.2.5
-          imagePullPolicy: IfNotPresent
+          imagePullPolicy: Always
           resources:
             requests:
               cpu: 100m

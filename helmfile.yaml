@@ -38,7 +38,7 @@ releases:
     namespace: {{ .Namespace }}
     chart: ./charts/besu-node
     values:
-      - ./values/bootnode.yaml
+      - ./values/bootnode-1.yaml
 
   - name: bootnode-2
     labels:
@@ -46,7 +46,7 @@ releases:
     namespace: {{ .Namespace }}
     chart: ./charts/besu-node
     values:
-      - ./values/bootnode.yaml
+      - ./values/bootnode-2.yaml
 
   - name: validator-1
     labels:
@@ -54,7 +54,7 @@ releases:
     namespace: {{ .Namespace }}
     chart: ./charts/besu-node
     values:
-      - ./values/validator.yaml
+      - ./values/validator-1.yaml
 
   - name: validator-2
     labels:
@@ -62,7 +62,7 @@ releases:
     namespace: {{ .Namespace }}
     chart: ./charts/besu-node
     values:
-      - ./values/validator.yaml
+      - ./values/validator-2.yaml
 
   - name: validator-3
     labels:
@@ -70,7 +70,7 @@ releases:
     namespace: {{ .Namespace }}
     chart: ./charts/besu-node
     values:
-      - ./values/validator.yaml
+      - ./values/validator-3.yaml
 
   - name: validator-4
     labels:
@@ -78,7 +78,7 @@ releases:
     namespace: {{ .Namespace }}
     chart: ./charts/besu-node
     values:
-      - ./values/validator.yaml
+      - ./values/validator-4.yaml
 
   - name: writer-1
     labels:
@@ -86,7 +86,7 @@ releases:
     namespace: {{ .Namespace }}
     chart: ./charts/besu-node
     values:
-      - ./values/writer.yaml
+      - ./values/writer-1.yaml
 
   - name: writer-2
     labels:
@@ -94,4 +94,4 @@ releases:
     namespace: {{ .Namespace }}
     chart: ./charts/besu-node
     values:
-      - ./values/writer.yaml
+      - ./values/writer-2.yaml

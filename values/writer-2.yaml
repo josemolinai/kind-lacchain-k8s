@@ -1,0 +1,5 @@
+---
+writers:
+  enabled: true
+nodeSelector:
+  writer-2: "true"  

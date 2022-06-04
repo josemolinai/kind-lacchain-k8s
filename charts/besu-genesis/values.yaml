@@ -2,7 +2,7 @@
 image:
   repository: localhost:5001/hyperledger/besu
   tag: latest
-  pullPolicy: IfNotPresent
+  pullPolicy: Always
 
 # the values here are from the example config file found in the the [Quickstart](https://besu.hyperledger.org/en/latest/Tutorials/Create-IBFT-Network/)
 rawGenesisConfig:

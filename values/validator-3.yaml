@@ -1,0 +1,5 @@
+---
+validators:
+  enabled: true
+nodeSelector:
+  validator-3: "true"  

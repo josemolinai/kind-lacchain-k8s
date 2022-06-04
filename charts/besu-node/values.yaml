@@ -2,7 +2,7 @@
 image:
   repository: localhost:5001/hyperledger/besu
   tag: latest
-  pullPolicy: IfNotPresent
+  pullPolicy: Always
 
 bootnode:
   enabled: false
@@ -19,7 +19,7 @@ node:
     cpuLimit: "500m"
   dataPath: "/data"
   genesisFilePath: "/etc/genesis/genesis.json"
-  logging: INFO
+  logging: DEBUG
   p2p:
     enabled: true
     host: "0.0.0.0"

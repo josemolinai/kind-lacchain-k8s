@@ -1,0 +1,5 @@
+---
+bootnode:
+  enabled: true
+nodeSelector:
+  bootnode-2: "true"    
