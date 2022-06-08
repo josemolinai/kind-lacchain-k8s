@@ -26,7 +26,7 @@ networking:
   disableDefaultCNI: false
 nodes:
 - role: control-plane
-  image: kindest/node:v1.24.0@sha256:0866296e693efe1fed79d5e6c7af8df71fc73ae45e3679af05342239cdc5bc8e
+  image: localhost:5001/kindest/node:v1.24.0
   extraMounts:
   - hostPath: /mnt/lacchain-k8s/node0/monitoring/
     containerPath: /mnt/data/
@@ -49,7 +49,7 @@ nodes:
     listenAddress: "0.0.0.0"
     protocol: TCP
 - role: worker
-  image: kindest/node:v1.24.0@sha256:0866296e693efe1fed79d5e6c7af8df71fc73ae45e3679af05342239cdc5bc8e
+  image: localhost:5001/kindest/node:v1.24.0
   extraMounts:
   - hostPath: /mnt/lacchain-k8s/node1/validator/1/
     containerPath: /mnt/data/validator/1/
@@ -67,7 +67,7 @@ nodes:
     selinuxRelabel: false
     propagation: None 
 - role: worker
-  image: kindest/node:v1.24.0@sha256:0866296e693efe1fed79d5e6c7af8df71fc73ae45e3679af05342239cdc5bc8e
+  image: localhost:5001/kindest/node:v1.24.0
   extraMounts:
   - hostPath: /mnt/lacchain-k8s/node1/validator/3/
     containerPath: /mnt/data/validator/3/

@@ -69,6 +69,9 @@ spec:
         {{- if contains "writer" .Release.Name }}
         type: writer
         {{- end}}
+        {{- if contains "bootnode" .Release.Name }}
+        type: bootnode
+        {{- end}}
         component: {{ .Release.Name }}
         app.kubernetes.io/name: {{ include "besu-node.name" . }}
         app.kubernetes.io/instance: {{ .Release.Name }}

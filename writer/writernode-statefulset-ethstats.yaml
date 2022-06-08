@@ -1,0 +1,50 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: lacchain-writernode-ethstats
+  labels:
+    app: lacchain-writernode-ethstats
+  namespace: lacchain-network
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: lacchain-writernode-ethstats
+  serviceName: lacchain-writernode-ethstats
+  template:
+    metadata:
+      labels:
+        app: lacchain-writernode-ethstats
+    spec:
+      containers:
+        - name: lacchain-writernode-ethstats
+          image: localhost:5001/alethio/ethstats-cli
+          imagePullPolicy: Always
+          env:
+          - name: HOST_BESU
+            value: 172.18.255.202
+          - name: NODE_NAME
+            value: WRITER_LACCHAIN_KIND_TEST
+          - name: NODE_EMAIL
+            value: xxxxx@gmail.com
+          volumeMounts:
+            - name: ethstats-data
+              mountPath: /root/.config/configstore/
+          command:
+            - /bin/sh
+            - -c
+          args:
+            - |
+             exec
+             ./bin/ethstats-cli.js -vd --register --account-email ${NODE_EMAIL} --node-name "${NODE_NAME}" --server-url http://172.18.255.200:30303 --client-url ws://${HOST_BESU}:4546
+
+          ports:
+            - containerPort: 9001
+              name: ethstats
+              protocol: TCP
+      securityContext:
+        fsGroup: 2000
+      volumes:
+        - name: ethstats-data
+          emptyDir:
+            sizeLimit: 1Gi

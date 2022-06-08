@@ -1,7 +1,6 @@
 #!/bin/sh
 
-docker pull kindest/node:v1.24.0@sha256:0866296e693efe1fed79d5e6c7af8df71fc73ae45e3679af05342239cdc5bc8e
-
+./preload.sh kindest/node:v1.24.0@sha256:0866296e693efe1fed79d5e6c7af8df71fc73ae45e3679af05342239cdc5bc8e kindest/node:v1.24.0
 ./preload.sh hyperledger/besu hyperledger/besu
 ./preload.sh prom/prometheus:v2.11.1 prom/prometheus:v2.11.1
 ./preload.sh grafana/grafana:6.2.5 grafana/grafana:6.2.5

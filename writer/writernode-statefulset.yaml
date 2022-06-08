@@ -1,0 +1,131 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: lacchain-writernode
+  labels:
+    app: lacchain-writernode
+  namespace: lacchain-network
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: lacchain-writernode
+  serviceName: lacchain-writernode
+  template:
+    metadata:
+      labels:
+        app: lacchain-writernode
+    spec:
+      containers:
+        - name: lacchain-writernode-relay-signer
+          image: localhost:5001/lacnetnetworks/relay-signer-lacchain:1.0.0
+          imagePullPolicy: Always
+          resources:
+            requests:
+              cpu: 250m
+              memory: 512Mi
+            limits:
+              cpu: 500m
+              memory: 1024Mi
+          env:
+          - name: HOST_BESU
+            value: "172.18.255.200"
+          - name: CONTRACT_ADDRESS
+            value: 0x3B62E51E37d090453600395Ff1f9bdf4d7398404
+          volumeMounts:
+            - name: data
+              mountPath: /opt/secret
+          ports:
+            - containerPort: 9001
+              name: relay-signer
+              protocol: TCP
+        - name: lacchain-writernode-nginx
+          image:  localhost:5001/lacnetnetworks/writer-nginx-lacchain:1.0.0
+          imagePullPolicy: Always
+          resources:
+            requests:
+              cpu: 150m
+              memory: 256Mi
+            limits:
+              cpu: 500m
+              memory: 1024Mi
+          env:
+          - name: HOST_RELAY_SIGNER
+            value: "127.0.0.1"
+          - name: HOST_BESU
+            value: "172.18.255.200"
+          - name: PUBLIC_IP
+            value: "172.18.255.202"    
+          ports:
+            - containerPort: 80
+              name: nginx
+              protocol: TCP
+          securityContext:
+            allowPrivilegeEscalation: false
+        - name:  lacchain-writernode
+          image: localhost:5001/lacnetnetworks/lacchain-besu:21.1.6
+          #image: localhost:5001/hyperledger/besu
+          imagePullPolicy: Always
+          resources:
+            requests:
+              cpu: 500m
+              memory: 1024Mi
+            limits:
+              cpu: 1000m
+              memory: 2048Mi
+          env:
+          - name: BESU_LOGGING
+            value: DEBUG 
+          - name: P2P_HOST
+            value: "172.18.255.202"
+          - name: P2P_PORT
+            value: "60606"
+          - name: NODE_NAME
+            value: WRITER_LACCHAIN_KIND_TEST   
+          volumeMounts:
+            - name: genesis-config
+              mountPath: /etc/genesis
+              readOnly: true
+            - name: config-toml-template
+              mountPath: /besu-tmp
+              readOnly: true
+            - name: data
+              mountPath: data
+          ports:
+            - containerPort: 4545
+              name: json-rpc
+            - containerPort: 4546
+              name: ws
+            - containerPort: 4547
+              name: graphql
+            - containerPort: 60606
+              name: rlpx
+            - containerPort: 60606
+              name: discovery
+              protocol: UDP
+          command:
+            - /bin/sh
+            - -c
+          args:
+            - |
+             exec 
+             envsubst < /besu-tmp/config.toml.template > /opt/lacchain/config.toml;
+             
+             sleep 2;
+             /opt/besu/bin/besu --genesis-file=/etc/genesis/genesis.json --data-path=/data public-key  export-address --to=/data/nodeAddress ;
+             /opt/besu/bin/besu --node-private-key-file=/data/key --config-file=/opt/lacchain/config.toml   --network-id=648529 --permissions-nodes-contract-enabled --permissions-nodes-contract-address=0x0000000000000000000000000000000000009999
+      securityContext:
+        fsGroup: 2000
+      volumes:
+        - name: data
+          emptyDir:
+            sizeLimit: 1Gi
+        - name: config-toml-template
+          configMap:
+            name: besu-config-toml-configmap-writer
+        - name: genesis-config
+          configMap:
+            name: besu-genesis
+        
+
+             
